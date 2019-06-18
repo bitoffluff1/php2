@@ -1,0 +1,8 @@
+<h1>Пользователи</h1>
+{% for user in users %}
+    <h2>{{  user.login }}</h2>
+    <p>{{  user.password }}</p>
+    <hr>
+{% else %}
+    No users have been found.
+{% endfor %}
