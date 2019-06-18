@@ -1,0 +1,16 @@
+<h1>Корзина</h1>
+
+{% for item in cart %}
+    <h2>{{  item.name }}</h2>
+    <p>Количество:{{  item.quantity }}</p>
+    <a href="/cart/delete?id={{ item.id }}"> Удалить </a>
+    <hr>
+{% else %}
+    Корзина пустая.
+{% endfor %}
+
+<a href="/cart/clear">Отчистить корзину</a>
+<a href="/cart/order">Оформить заказ</a>
+
+
+
