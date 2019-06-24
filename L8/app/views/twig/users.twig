@@ -1,0 +1,13 @@
+<h1>Пользователи</h1>
+{% for user in users %}
+    <h2>{{  user.columns.login }}</h2>
+    <a href="/user/user?id={{ user.columns.id }}"> Подробнее </a>
+
+    {% if userNow.role=="isAdmin" %}
+        <a href="/user/delete?id={{ user.columns.id }}"> Удалить </a>
+    {% endif %}
+
+    <hr>
+{% else %}
+    No users have been found.
+{% endfor %}

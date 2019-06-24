@@ -1,0 +1,32 @@
+<h1>Отзывы</h1>
+
+<div>
+    <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+
+    {% if message %}
+        <p class="shopping-cart-forms-text pink">{{ message }}</p>
+    {% endif %}
+
+    <form method="post" action="/review/add">
+        <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+               placeholder="Name" type="text" name="name">
+        <textarea class="shopping-cart-forms-input textarea_size" placeholder="Your message"
+                  name="text"></textarea>
+        <input class="button-black shopping-cart-forms-button_size modal_size" type="submit" value="SEND">
+    </form>
+
+</div>
+{% for review in reviews %}
+    <h2>{{ review.columns.name }}</h2>
+    <h4>{{ review.columns.date }}</h4>
+    <p>{{ review.columns.text }}</p>
+
+    {% if user.role=="isAdmin" %}
+        <a href="/review/delete?id={{ review.columns.id }}"> Удалить </a>
+    {% endif %}
+    <hr>
+{% else %}
+    No reviews have been found.
+{% endfor %}
+
+

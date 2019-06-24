@@ -1,0 +1,30 @@
+<h1>Товар</h1>
+
+<h2>{{  good.columns.name }}</h2>
+<p>Стоимость: {{ good.columns.price }}</p>
+<a href="/cart/add?id={{ good.columns.id }}">Добавить в корзину</a>
+
+{% if user.role=="isAdmin" %}
+    <a href="/good/delete?id={{ good.columns.id }}"> Удалить </a>
+{% endif %}
+
+<div>
+    <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+    <form method="post" action="/review/add">
+        <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+               placeholder="Name" type="text" name="name">
+        <textarea class="shopping-cart-forms-input textarea_size" placeholder="Your message"
+                  name="text"></textarea>
+        <input type="hidden" value="{{ good.columns.id }}" name="id_product">
+        <input class="button-black shopping-cart-forms-button_size modal_size" type="submit" value="SEND">
+    </form>
+</div>
+
+{% for review in reviews %}
+    <h2>{{  review.columns.name }}</h2>
+    <h4>{{  review.columns.date }}</h4>
+    <p>{{  review.columns.text }}</p>
+    <hr>
+{% endfor %}
+
+

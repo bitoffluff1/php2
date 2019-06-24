@@ -1,0 +1,27 @@
+<h1>Заказы</h1>
+
+{% for order in orders %}
+    <h2>Номер заказа: {{ order.columns.id }}</h2>
+    <p>Дата заказа: {{ order.columns.date }}</p>
+    <p>Статус заказа: {{ order.columns.status }}</p>
+
+    {% if user.role==isAdmin %}
+        <form action="/order/changeStatus" method="post">
+            <select name="status">
+                <option value="inWork">In work</option>
+                <option value="sent">Sent</option>
+            </select>
+            <input type="hidden" name="id" value="{{ order.columns.id }}">
+            <input type="submit" value="Изменить">
+        </form>
+    {% endif %}
+
+    {% for good in order.columns.order_items %}
+        <h2>{{ good.name }}</h2>
+        <p>Стоимость: {{ good.price }}</p>
+        <p>Количество:{{ good.quantity }}</p>
+    {% endfor %}
+    <hr>
+{% endfor %}
+
+

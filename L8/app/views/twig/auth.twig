@@ -1,0 +1,33 @@
+{% if message %}
+    {{ message }}
+{% endif %}
+<div>
+    <h2>Регистрация</h2>
+
+    <form method="post" action="/auth/signUp">
+        <input placeholder="FIO" type="text" name="fio">
+        <input placeholder="Login" type="text" name="login" required>
+        <input placeholder="Password" name="password" required>
+        <input type="submit" value="Зарегестрироваться">
+    </form>
+</div>
+
+
+{% if user %}
+    Привет, {{ user.login }}!
+    <a href="/auth/logout">Выход</a>
+
+    {% if user.role!="isAdmin" %}
+        <a href="/order/userOrders">Посмотреть заказы</a>
+    {% endif %}
+
+{% else %}
+    <div>
+        <h2>Войти</h2>
+        <form method="post" action="/auth/login">
+            <input placeholder="Login" type="text" required name="login">
+            <input placeholder="Password" required name="password">
+            <input type="submit" value="Войти">
+        </form>
+    </div>
+{% endif %}

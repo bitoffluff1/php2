@@ -1,0 +1,9 @@
+<h1>Пользователь</h1>
+
+<h2>{{  user.columns.login }}</h2>
+<p>Пароль: {{ user.columns.password }}</p>
+<p>Имя: {{ user.columns.fio }}</p>
+
+{% if userNow.role=="isAdmin" %}
+    <a href="/user/delete?id={{ user.columns.id }}"> Удалить </a>
+{% endif %}
