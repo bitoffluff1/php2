@@ -5,17 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--<link rel="stylesheet" href="style/style.css">-->
+    <link rel="stylesheet" href="../style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-<!--<header class="header">
+<header class="header">
     <div class="container header-flex">
         <div class="header-left">
-            <a class="logo" href="#"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
+            <a class="logo" href="#"><img class="img-logo" src="../img/logo.png" alt="logo">BRAN <span
                         class="pink-D">D</span></a>
             <form class="header-form" action="">
                 <details class="Browse-details">
@@ -56,23 +56,35 @@
         </div>
         <div class="header-right">
             <div class="cart-box">
-                <a href="/cart"><img src="img/cart.svg" class="img-cart" alt="cart"></a>
+                <a href="/cart"><img src="../img/cart.svg" class="img-cart" alt="cart"></a>
                 <div class="cart-items" id="quantity"></div>
             </div>
-            <a href="#" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
+            <a href="/auth" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
         </div>
     </div>
-</header>-->
-<ul>
-    {% if user.role=="isAdmin" %}
-        <li><a href="/user">Пользователи</a></li>
-        <li><a href="/order">Заказы</a></li>
-    {% endif %}
-    <li><a href="/good">Товары</a></li>
-    <li><a href="/cart">Корзина</a></li>
-    <li><a href="/review">Отзывы</a></li>
-    <li><a href="/auth">Войти</a></li>
-</ul>
+</header>
+<nav class="navigation">
+    <div class="container">
+        <ul class="menu">
+            <li class="menu-list">
+                <a class="menu-link" href="/good">Home</a>
+            </li>
+            <li class="menu-list">
+                <a class="menu-link" href="/review">Reviews</a>
+            </li>
+
+            {% if user.role=="isAdmin" %}
+                <li class="menu-list">
+                    <a class="menu-link" href="/user">Users</a>
+                </li>
+                <li class="menu-list">
+                    <a class="menu-link" href="/order">Orders</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+</nav>
 
 {{ content|raw }}
 

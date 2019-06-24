@@ -1,53 +1,72 @@
-<h1>Товары</h1>
-<p>Cортировка:</p>
-<a href="/good/goods?sort=popularity">по популярности</a>
-<a href="/good/goods?sort=name">по названию</a>
+<main>
+    <h2 class='heading'>All products</h2>
 
-{% if user.role=="isAdmin" %}
-    <div class="shipping-address container">
-        <h2 class="shopping-cart-forms-text">Product Add</h2>
-        <form method="post" enctype="multipart/form-data" action="/good/add">
-            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                   placeholder="Name" name="name" type="text" required>
-            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                   placeholder="Price" name="price" type="text" required>
-            <input class="custom-file-input"  type="file" name="userfile"><br>
-            <input type="submit" class="button-black shopping-cart-forms-button_size" value="Add">
-        </form>
-    </div>
-{% endif %}
+    <div class="container">
+        <p class="text">Sort by</p>
+        <a class="trending-now-link" href="/good/goods?sort=popularity">popularity</a>
+        <a class="trending-now-link" href="/good/goods?sort=name">name</a>
 
-{% for good in goods %}
-    <h2>{{  good.columns.name }}</h2>
-    <p>Стоимость: {{  good.columns.price}}</p>
-    <a href="/good/good?id={{ good.columns.id }}"> Подробнее </a>
-    <a href="/cart/add?id={{ good.columns.id }}"> Добавить в корзину </a>
-
-    {% if user.role=="isAdmin" %}
-
-        {% if good.columns.stock=="1" %}
-            <p>В наличии</p>
-        {% elseif good.columns.stock=="0" %}
-            <h3>Нет в наличии</h3>
+        {% if user.role=="isAdmin" %}
+            <div class="shipping-address">
+                <h2 class="shopping-cart-forms-text">Product Add</h2>
+                <form method="post" enctype="multipart/form-data" action="/good/add">
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Name" name="name" type="text" required>
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Price" name="price" type="text" required>
+                    <input class="custom-file-input" type="file" name="userfile"><br>
+                    <input type="submit" class="button-black shopping-cart-forms-button_size" value="Add">
+                </form>
+            </div>
         {% endif %}
 
-        <div class="change-products-box">
-            <form class="change-products" method="post" action="/good/change">
-                <input class="product-form product-form_input"
-                       placeholder="New name" type="text" name="name" required>
-                <input type="hidden" name="id" value="{{ good.columns.id }}">
-                <input class="product-form product-form_submit" type="submit" value="submit">
-            </form>
-            <form class="change-products" method="post" action="/good/change">
-                <input class="product-form product-form_input"
-                       placeholder="New price" type="text" name="price" required>
-                <input type="hidden" name="id" value="{{ good.columns.id }}">
-                <input class="product-form product-form_submit" type="submit" value="submit">
-            </form>
-            <a class="product-form product-form_submit product-form_margin" href="/good/delete?id={{ good.columns.id }}">delete</a>
+        <div class="fetured-items-box">
+            {% for good in goods %}
+                <div class="item">
+                    <div class="fetured-item1">
+                        <a href="/good/good?id={{ good.columns.id }}" class="fetured-item">
+                            <img src="../{{ good.columns.address }}" alt="fetured-items">
+                            <div class="item-text">
+                                <p class="name-item">{{ good.columns.name }}</p>
+                                <p class="pink-item">${{ good.columns.price }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="add">
+                        <a href="/cart/add?id={{ good.columns.id }}" class="add-to-card">
+                            <img class="cart-white" src="../img/cart-white.svg" alt="cart">Add to Cart</a>
+                    </div>
+
+                    {% if user.role=="isAdmin" %}
+
+                        <div class="change-products-box">
+
+                            {% if good.columns.stock=="1" %}
+                                <p class="name-item">В наличии</p>
+                            {% elseif good.columns.stock=="0" %}
+                                <p class="text pink">Нет в наличии</p>
+                            {% endif %}
+
+                            <form class="change-products" method="post" action="/good/change">
+                                <input class="product-form product-form_input"
+                                       placeholder="New name" type="text" name="name" required>
+                                <input type="hidden" name="id" value="{{ good.columns.id }}">
+                                <input class="product-form product-form_submit" type="submit" value="submit">
+                            </form>
+                            <form class="change-products" method="post" action="/good/change">
+                                <input class="product-form product-form_input"
+                                       placeholder="New price" type="text" name="price" required>
+                                <input type="hidden" name="id" value="{{ good.columns.id }}">
+                                <input class="product-form product-form_submit" type="submit" value="submit">
+                            </form>
+                            <a class="product-form product-form_submit product-form_margin"
+                               href="/good/delete?id={{ good.columns.id }}">delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                No goods have been found.
+            {% endfor %}
         </div>
-    {% endif %}
-    <hr>
-{% else %}
-    No goods have been found.
-{% endfor %}
+    </div>
+</main>

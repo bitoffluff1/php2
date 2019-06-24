@@ -56,7 +56,7 @@ class App
     private function runController()
     {
         $request = new \App\services\Request();
-        $controllerName = $request->getControllerName() ?: "user";
+        $controllerName = $request->getControllerName() ?: "good";
         $actionName = $request->getActionName();
 
         $controllerName = "App\\controllers\\" . ucfirst($controllerName) . "Controller";

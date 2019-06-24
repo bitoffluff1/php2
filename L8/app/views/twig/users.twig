@@ -1,13 +1,17 @@
-<h1>Пользователи</h1>
-{% for user in users %}
-    <h2>{{  user.columns.login }}</h2>
-    <a href="/user/user?id={{ user.columns.id }}"> Подробнее </a>
+<main>
+    <h2 class='heading'>Users</h2>
+    <div class="container">
+        {% for user in users %}
+            <div class="feedback">
+                <a href="/user/user?id={{ user.columns.id }}" class="menu-link">
+                    {{ user.columns.login }}</a>
 
-    {% if userNow.role=="isAdmin" %}
-        <a href="/user/delete?id={{ user.columns.id }}"> Удалить </a>
-    {% endif %}
+                {% if userNow.role=="isAdmin" %}
+                    <a href="/user/delete?id={{ user.columns.id }}"
+                       class="button-black shopping-cart-forms-button_size button-users">delete</a>
+                {% endif %}
 
-    <hr>
-{% else %}
-    No users have been found.
-{% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</main>
