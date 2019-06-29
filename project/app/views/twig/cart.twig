@@ -1,0 +1,79 @@
+{% if message %}
+    <div class="container center">
+        <h2 class="shopping-cart-forms-text modal_title pink">{{ message }}</h2>
+    </div>
+{% endif %}
+
+{% if cart %}
+<div class="shopping-cart-table container">
+    <div class="row row-header">
+        <div class="col col-1 row-header__col row_first">Product details</div>
+        <div class="col row-header__col">unite price</div>
+        <div class="col row-header__col">quantity</div>
+        <div class="col row-header__col">shipping</div>
+        <div class="col row-header__col">subtotal</div>
+        <div class="col row-header__col row-header__last">action</div>
+    </div>
+    <div class="cart">
+        {% endif %}
+
+        {% for item in cart %}
+            <div class="row row-product">
+                <div class="col col-1 row_first">
+                    <figure class="col-1__product">
+                        <a href="/good/good?id={{ item.id }}">
+                            <img src="{{ item.address }}" alt="item" class="cart-item-img"></a>
+                        <figcaption class="col-1__text">
+                            <a href="/good/good?id={{ item.id }}" class="shopping-cart-product-text">{{ item.name }}</a>
+                            <p class="shopping-cart-product-text-bottom">
+                                <span class="bold">Color: </span>
+                                <span>Black</span></p>
+                            <p class="shopping-cart-product-text-bottom">
+                                <span class="bold">Size: </span>
+                                <span>XS</span></p>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col col-2">${{ item.price }}</div>
+                <div class="col col-3">
+                    <div>
+                        <a href="/cart/delete?id={{ item.id }}" class="button-black quantity-button_size">-</a>
+                        {{ item.quantity }}
+                        <a href="/cart/add?id={{ item.id }}" class="button-black quantity-button_size">+</a>
+                    </div>
+                </div>
+                <div class="col col-4">FREE</div>
+                <div class="col col-5">${{ item.price * item.quantity }}</div>
+                <div class="col col-6 row-header__last row-header__last_center">
+                    <a href="/cart/delete?id={{ item.id }}&item=all" class="delete-cart-item"><i class="fas fa-times-circle"></i></a></div>
+            </div>
+        {% else %}
+            <div class="container center">
+                <h2 class="shopping-cart-forms-text modal_title pink">Cart empty</h2>
+            </div>
+        {% endfor %}
+
+    </div>
+    {% if cart %}
+        <div class="shopping-cart-table-button">
+            <a href="/cart/clear" class="button-black shopping-cart-table-button_size">cLEAR SHOPPING CART </a>
+            <div class="shopping-cart-forms">
+                <form class="proceed-to-checkout" method="post" action="/order/add">
+                <textarea name="comment" placeholder="Shipping Address"
+                          cols="40" rows="5"></textarea>
+                    <div class="proceed-to-checkout-text">
+                        <p class="proceed-to-checkout-text-bottom">GRAND TOTAL <span class="pink">${{ total }}</span></p>
+                    </div>
+                    <input class="button-pink proceed-to-checkout-button_size" value="checkout" type="submit">
+                </form>
+            </div>
+        </div>
+
+    {% endif %}
+</div>
+
+
+
+
+
+

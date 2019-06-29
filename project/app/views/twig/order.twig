@@ -1,0 +1,47 @@
+<div class="container">
+    <h2 class='heading'>All orders</h2>
+    <div class="orders">
+        {% for order in orders %}
+            <div class="order">
+                <div class="orders_center">
+                    <h2 class="shopping-cart-forms-text modal_title pink shopping-cart-forms-text_margin">
+                        Order status: {{ order.columns.status }}</h2>
+
+                    {% if user.role==isAdmin %}
+                        <form action="/order/changeStatus" method="post">
+                            <select class="text-choose text-choose_margin" name="status">
+                                <option value="inWork">In work</option>
+                                <option value="sent">Sent</option>
+                            </select>
+                            <input type="hidden" name="id" value="{{ order.columns.id }}">
+                            <input class="button-black shopping-cart-forms-button_size" type="submit" value="CHANGE">
+                        </form>
+                    {% endif %}
+
+                </div>
+
+                <h2 class="shopping-cart-forms-text modal_title center">Order NO.: {{ order.columns.id }}</h2>
+                <p class="text-bottom-fetured-items">ORDER DATE: {{ order.columns.date }}</p>
+                <main>
+                    <div class="fetured-items-box container">
+
+                        {% for good in order.columns.order_items %}
+                            <div class="item itemAll">
+                                <img src="../{{ good.address }}" alt="fetured-items">
+                                <div class="item-text">
+                                    <p class="name-item">{{ good.name }}</p>
+                                    <p class="name-item">Quantity: {{ good.quantity }}</p>
+                                    <p class="pink-item">${{ good.price }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </main>
+                <h2 class="shopping-cart-forms-text modal_title center">ORDER TOTAL:
+                    <span class="pink">${{ order.columns.total }}</span></h2>
+                <hr class="hr">
+            </div>
+        {% endfor %}
+    </div>
+</div>
