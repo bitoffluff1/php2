@@ -1,0 +1,41 @@
+<div class="feedback-block">
+    <div class="feedback-new">
+        <div>
+            <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+
+            {% if message %}
+                <p class="shopping-cart-forms-text pink">{{ message }}</p>
+            {% endif %}
+
+            <form method="post" action="/review/add">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Name" type="text" name="name">
+                <textarea class="shopping-cart-forms-input textarea_size" placeholder="Your message"
+                          name="text"></textarea>
+                <input class="button-black shopping-cart-forms-button_size modal_size" type="submit" value="SEND">
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="name-product name-product_margin">Reviews</h2>
+
+        {% for review in reviews %}
+            <div class="feedback">
+                <div>
+                    <h3 class="text">{{ review.columns.name }}</h3>
+                    {% if user.role=="isAdmin" %}
+                        <a href="/review/delete?id={{ review.columns.id }}" class="button-black shopping-cart-forms-button_size button-users"> delete</a>
+                    {% endif %}
+                </div>
+
+                <div class="feedback-text">
+                    <p class="text-material-designer text-material-designer_margin">{{ review.columns.date }}</p>
+                    <p class="text-details text-details__feedback">{{ review.columns.text }}</p>
+                </div>
+            </div>
+        {% else %}
+            No reviews have been found.
+        {% endfor %}
+    </div>
+</div>
+

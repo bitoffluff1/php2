@@ -1,0 +1,12 @@
+<main>
+    <h2 class='heading'>User</h2>
+    <div class="container">
+        <h3 class="name-product">{{ user.columns.login }}</h3>
+        <p class="text">Password: {{ user.columns.password }}</p>
+
+        {% if userNow.role=="isAdmin" %}
+            <a href="/user/delete?id={{ user.columns.id }}"
+               class="button-black shopping-cart-forms-button_size button-users"> delete </a>
+        {% endif %}
+    </div>
+</main>
