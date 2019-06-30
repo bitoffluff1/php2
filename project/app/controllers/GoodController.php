@@ -24,28 +24,8 @@ class GoodController extends Controller
 
     public function goodsAction()
     {
-        $user = $this->checkUser();
-        if ($user["role"] === "isAdmin") {
-            $goods = App::call()->goodRepository->getAll();
-        } else {
-            $sql = App::call()->goodServices->getSql($this->request);
-            $goods = App::call()->goodRepository->getAll($sql);
-        }
-
-        $goodsPrice = [];
-        foreach ($goods as $value) {
-            $goodsPrice[] = (int)$value->columns["price"];
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            echo $maxPrice = max($goodsPrice);
-            exit;
-        }
-
         $params = [
-            "goods" => $goods,
-            "user" => $user,
-            "goodsPrice" => $goodsPrice,
+            "user" => $this->checkUser(),
         ];
 
         echo $this->render("goods", $params);
@@ -100,51 +80,37 @@ class GoodController extends Controller
     {
         $data = json_decode(trim(file_get_contents("php://input")), true);
 
-        $category = (!empty($data["category"])) ? $data["category"] : 0;
-        $size = (!empty($data["size"])) ? implode($data["size"], "','") : null;
-        $price = (!empty($data["price"])) ? $data["price"] : 0;
+        $options = App::call()->goodServices->getOptions($data);
 
-        $sort = (!empty($data["sort"])) ? $data["sort"] : "count_desc";
-        $sort = explode('_', $sort);
-        $sortBy = $sort[0];
-        $sortDir = $sort[1];
-
-        $data = [
-            "category" => $category,
-            "size" => $size,
-            "price" => $price,
-            "sortBy" => $sortBy,
-            "sortDir" => $sortDir
-        ];
-
-        $categoryWhere =
-            ($category !== 0)
-                ? "category = '$category' and "
-                : "";
-
-        $brandsWhere =
-            ($size !== null)
-                ? "size in ('$size') and "
-                : "";
-
-        $sql = "SELECT * FROM gallery WHERE stock = '1' AND $categoryWhere $brandsWhere price BETWEEN '0' AND '$price' ORDER BY $sortBy $sortDir";
+        $user = $this->checkUser();
+        $sql = App::call()->goodServices->getSql($options, $user);
 
         $goods = App::call()->goodRepository->getAll($sql);
-        $user = $this->checkUser();
+
         $items = [];
         foreach ($goods as $value) {
             $items[] = $value->columns;
         }
-
-
-        /*$params = [
-            "goods" => $goods,
-            "user" => $user,
-            "goodsPrice" => $goodsPrice,
-        ];
-
-        echo $this->render("goods", $params);*/
-
         echo $decoded = json_encode($items, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getMaxPriceAction()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $user = $this->checkUser();
+            if ($user["role"] === "isAdmin") {
+                $goods = App::call()->goodRepository->getAll();
+            } else {
+                $sql = "SELECT * FROM gallery WHERE stock = '1'";
+                $goods = App::call()->goodRepository->getAll($sql);
+            }
+
+            $goodsPrice = [];
+            foreach ($goods as $value) {
+                $goodsPrice[] = (int)$value->columns["price"];
+            }
+
+            echo $maxPrice = max($goodsPrice);
+        }
     }
 }

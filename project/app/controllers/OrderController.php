@@ -15,18 +15,11 @@ class OrderController extends Controller
 
         $orders = App::call()->orderRepository->getAll();
         $orders = App::call()->orderServices->decodeCart($orders);
-
-        $total = 0;
-        foreach ($orders as $value) {
-            foreach ($value->columns["order_items"] as $item) {
-                $total += $item["quantity"] * (int)$item["price"];
-            }
-            $value->columns["total"] = $total;
-            $total = 0;
-        }
+        $orders = App::call()->orderServices->getSumOrder($orders);
 
         $params = [
             "orders" => $orders,
+            "user" => $this->checkUser(),
         ];
 
         echo $this->render("order", $params);
@@ -91,6 +84,7 @@ class OrderController extends Controller
 
         $orders = App::call()->orderRepository->getUserOrders($user["id"]);
         $orders = App::call()->orderServices->decodeCart($orders);
+        $orders = App::call()->orderServices->getSumOrder($orders);
 
         $params = [
             "orders" => $orders,

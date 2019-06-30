@@ -1022,10 +1022,6 @@ details[open] > .category {
     margin-bottom: 39px;
 }
 
-.itemAll:nth-child(3n-1):last-of-type {
-    margin-right: 285px;
-}
-
 .item:hover img {
     filter: brightness(50%);
 }

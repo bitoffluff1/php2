@@ -85,4 +85,10 @@ class AuthController extends Controller
         App::call()->authServices->logout($this->request);
         $this->redirect("/auth");
     }
+
+    public function getUserAction(){
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            echo $user = json_encode($this->checkUser());
+        }
+    }
 }

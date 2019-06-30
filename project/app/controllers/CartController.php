@@ -11,11 +11,6 @@ class CartController extends Controller
 
     public function cartAction()
     {
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            echo $quantity =  App::call()->cartServices->getQuantityCart($this->request);
-            exit;
-        }
-
         $cart = App::call()->cartServices->getCart($this->request);
         $total = 0;
         foreach ($cart as $good){
@@ -47,7 +42,7 @@ class CartController extends Controller
         App::call()->cartServices->addItem($this->request, $item);
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            echo $quantity =  App::call()->cartServices->getQuantityCart($this->request);
+            $this->getQuantityCartAction();
             exit;
         }
 
@@ -64,6 +59,12 @@ class CartController extends Controller
     {
         App::call()->cartServices->clearCart($this->request);
         $this->redirect();
+    }
+
+    public function getQuantityCartAction(){
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            echo $quantity =  App::call()->cartServices->getQuantityCart($this->request);
+        }
     }
 
 }

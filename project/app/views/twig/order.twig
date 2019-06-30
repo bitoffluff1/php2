@@ -7,7 +7,7 @@
                     <h2 class="shopping-cart-forms-text modal_title pink shopping-cart-forms-text_margin">
                         Order status: {{ order.columns.status }}</h2>
 
-                    {% if user.role==isAdmin %}
+                    {% if user.role=="isAdmin"%}
                         <form action="/order/changeStatus" method="post">
                             <select class="text-choose text-choose_margin" name="status">
                                 <option value="inWork">In work</option>

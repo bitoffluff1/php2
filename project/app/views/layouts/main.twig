@@ -16,15 +16,17 @@
     <header class="header">
         <div class="container header-flex">
             <div class="header-left">
-                <a class="logo" href="#"><img class="img-logo" src="../img/logo.png" alt="logo">BRAN <span
+                <a class="logo" href="/good"><img class="img-logo" src="../img/logo.png" alt="logo">BRAN <span
                             class="pink-D">D</span></a>
+                <search @search="handleSearchClick"></search>
             </div>
             <div class="header-right">
                 <div class="cart-box">
                     <a href="/cart"><img src="../img/cart.svg" class="img-cart" alt="cart"></a>
                     <div class="cart-items" v-text="totalAmount"></div>
                 </div>
-                <a href="/auth" class="button">My&nbsp;Account</a>
+                <a href="/auth" class="button" v-if="user.length === 0">My&nbsp;Account</a>
+                <a href="/auth" class="button" v-else v-text="user.login"></a>
             </div>
         </div>
     </header>

@@ -6,16 +6,16 @@
             <div class="trending-now">
                 <p class="text">Category</p>
                 <div class="trending-now-text">
-                    <a href="#" v-on:click="getCategory('women')" class="trending-now-link">Women<span
+                    <a href="#" @click.prevent="getCategory('women')" class="trending-now-link">Women<span
                                 class="trending-span">|</span></a>
-                    <a href="#" v-on:click="getCategory('men')" class="trending-now-link">Men <span
+                    <a href="#" @click.prevent="getCategory('men')" class="trending-now-link">Men <span
                                 class="trending-span">|</span></a>
-                    <a href="#" v-on:click="getCategory('featured')" class="trending-now-link">Featured</a>
-                    <a href="#" v-on:click="getCategory('featured')" class="trending-now-link">Featured<span
+                    <a href="#" @click.prevent="getCategory('featured')" class="trending-now-link">Featured</a>
+                    <a href="#" @click.prevent="getCategory('featured')" class="trending-now-link">Featured<span
                                 class="trending-span">|</span></a>
-                    <a href="#" v-on:click="getCategory('men')" class="trending-now-link">Men <span
+                    <a href="#" @click.prevent="getCategory('men')" class="trending-now-link">Men <span
                                 class="trending-span">|</span></a>
-                    <a href="#" v-on:click="getCategory('women')" class="trending-now-link">Women</a>
+                    <a href="#" @click.prevent="getCategory('women')" class="trending-now-link">Women</a>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
             </div>
             <div class="range-price">
                 <label class="text">pRICE</label>
-                <input type="range" v-model.number="price" step="1" min="0" max="{{ max(goodsPrice) }}">
+                <input type="range" v-model.number="price" step="1" min="0" :max="maxPrice">
                 <p class="text-drop-list-filter">$0 - $<span v-text="price"></span></p>
             </div>
         </div>
@@ -57,6 +57,13 @@
                     <option value="name_asc">Name A-Z</option>
                     <option value="name_desc">Name Z-A</option>
                 </select>
+            </div>
+            <div class="show">
+                <p class="buttons-text">Show</p>
+                <p class="buttons-text">
+                    <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(8)">8</a></p>
+                <p class="buttons-text">
+                    <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(12)">12</a></p>
             </div>
         </div>
 
@@ -74,56 +81,7 @@
             </div>
         {% endif %}
 
-        <products :items="items" @onbuy="handleBuyClick"></products>
+        <products :user="user" :items="items" :query="filterValue" :quantity="quantityItemOnPage" @onbuy="handleBuyClick"></products>
 
-        <!--<div class="fetured-items-box">
-            {% for good in goods %}
-                <div class="item itemAll">
-                    <div class="fetured-item1">
-                        <a href="/good/good?id={{ good.columns.id }}" class="fetured-item">
-                            <img src="../{{ good.columns.address }}" alt="fetured-items">
-                            <div class="item-text">
-                                <p class="name-item">{{ good.columns.name }}</p>
-                                <p class="pink-item">${{ good.columns.price }}</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="add">
-                        <a href="#" @click.prevent="handleBuyClick({{ good.columns.id }})" class="add-to-card">
-                            <img class="cart-white" src="../img/cart-white.svg" alt="cart">Add to Cart</a>
-                    </div>
-
-                    {% if user.role=="isAdmin" %}
-
-                        <div class="change-products-box">
-
-                            {% if good.columns.stock=="1" %}
-                                <p class="name-item">В наличии</p>
-                            {% elseif good.columns.stock=="0" %}
-                                <p class="text pink">Нет в наличии</p>
-                            {% endif %}
-
-                            <form class="change-products" method="post" action="/good/change">
-                                <input class="product-form product-form_input"
-                                       placeholder="New name" type="text" name="name" required>
-                                <input type="hidden" name="id" value="{{ good.columns.id }}">
-                                <input class="product-form product-form_submit" type="submit" value="submit">
-                            </form>
-                            <form class="change-products" method="post" action="/good/change">
-                                <input class="product-form product-form_input"
-                                       placeholder="New price" type="text" name="price" required>
-                                <input type="hidden" name="id" value="{{ good.columns.id }}">
-                                <input class="product-form product-form_submit" type="submit" value="submit">
-                            </form>
-                            <a class="product-form product-form_submit product-form_margin"
-                               href="/good/delete?id={{ good.columns.id }}">delete</a>
-                        </div>
-                    {% endif %}
-                </div>
-
-            {% else %}
-                No goods have been found.
-            {% endfor %}
-        </div>-->
     </div>
 </main>

@@ -44,10 +44,11 @@
         {% for review in reviews %}
             <div class="feedback">
                 <div>
-                    <h3 class="bold-text">{{ review.columns.name }}</h3>
+                    <h3 class="text">{{ review.columns.name }}</h3>
 
                     {% if user.role=="isAdmin" %}
-                        <a href="/review/delete?id={{ review.columns.id }}"> delete </a>
+                        <a href="/review/delete?id={{ review.columns.id }}"
+                           class="button-black shopping-cart-forms-button_size button-users"> delete</a>
                     {% endif %}
                 </div>
 

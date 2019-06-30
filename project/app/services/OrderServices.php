@@ -23,4 +23,16 @@ class OrderServices
         return $order;
     }
 
+    public function getSumOrder($orders){
+        $total = 0;
+        foreach ($orders as $value) {
+            foreach ($value->columns["order_items"] as $item) {
+                $total += $item["quantity"] * (int)$item["price"];
+            }
+            $value->columns["total"] = $total;
+            $total = 0;
+        }
+        return $orders;
+    }
+
 }
