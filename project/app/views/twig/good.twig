@@ -1,0 +1,69 @@
+<section class="single-product-box">
+    <div class="single-product">
+        <img class="img-product" src="../{{ good.columns.address }}" alt="product">
+    </div>
+
+    <div class="box-details-single-product">
+        <div class="container details-single-product">
+            <div class="container-single-product">
+                <h3 class="name-product">{{ good.columns.name }}</h3>
+                <p class="price">${{ good.columns.price }}</p>
+                <hr class="hr">
+
+                <div class="box-button-add">
+                    {% if user.role=="isAdmin" %}
+                        <a href="/good/delete?id={{ good.columns.id }}"
+                           class="button-black shopping-cart-forms-button_size button-users"> delete </a>
+                    {% endif %}
+                    <a href="#" @click.prevent="handleBuyClick({{ good.columns.id }})" class="button-add">
+                        <img class="img-cart-pink" src="../img/cart-pink.svg" alt="cart">Add to&nbsp;Cart</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div class="feedback-block">
+    <div class="feedback-new">
+        <div>
+            <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+            <form method="post" action="/review/add">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Name" type="text" name="name">
+                <textarea class="shopping-cart-forms-input textarea_size" placeholder="Your message"
+                          name="text"></textarea>
+                <input type="hidden" value="{{ good.columns.id }}" name="id_product">
+                <input class="button-black shopping-cart-forms-button_size modal_size" type="submit" value="SEND">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="name-product name-product_margin">Reviews</h2>
+
+        {% for review in reviews %}
+            <div class="feedback">
+                <div>
+                    <h3 class="text">{{ review.columns.name }}</h3>
+
+                    {% if user.role=="isAdmin" %}
+                        <a href="/review/delete?id={{ review.columns.id }}"
+                           class="button-black shopping-cart-forms-button_size button-users"> delete</a>
+                    {% endif %}
+                </div>
+
+                <div class="feedback-text">
+                    <p class="text-material-designer text-material-designer_margin">{{ review.columns.date }}</p>
+                    <p class="text-details text-details__feedback">{{ review.columns.text }}</p>
+                </div>
+            </div>
+        {% else %}
+            <p class="text">No reviews have been found.</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+

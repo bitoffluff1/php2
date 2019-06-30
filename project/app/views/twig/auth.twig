@@ -1,0 +1,47 @@
+{% if message %}
+    <div class="container center">
+        <h2 class="shopping-cart-forms-text modal_title pink">{{ message }}</h2>
+    </div>
+{% endif %}
+
+<main class="container auth-flex">
+    {% if user %}
+        <div>
+            <h2 class="shopping-cart-forms-text modal_title pink">Hi, {{ user.login }}!</h2>
+            <a class="button-black shopping-cart-forms-button_size modal_size" href="/auth/logout">Sign Out</a>
+
+            {% if user.role!="isAdmin" %}
+                <a class="button-black shopping-cart-forms-button_size modal_size" href="/order/userOrders">History orders</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div>
+            <h2 class="shopping-cart-forms-text modal_title">SIGN IN</h2>
+
+            <form method="post" action="/auth/login">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Login" type="text" required name="login">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Password" required name="password">
+                <input class="button-black shopping-cart-forms-button_size modal_size"
+                       type="submit" value="SIGN IN">
+            </form>
+        </div>
+    {% endif %}
+
+    <div>
+        <h2 class="shopping-cart-forms-text modal_title">SIGN UP</h2>
+
+        <form method="post" action="/auth/signUp">
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                   placeholder="FIO" type="text" name="fio">
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                   placeholder="Login" type="text" name="login" required>
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                   placeholder="Password" name="password" required>
+            <input class="button-black shopping-cart-forms-button_size modal_size"
+                   type="submit" value="SIGN UP">
+        </form>
+    </div>
+
+</main>

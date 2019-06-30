@@ -1,0 +1,87 @@
+<main>
+    <h2 class='heading'>All products</h2>
+
+    <div class="container">
+        <div class="forms-right">
+            <div class="trending-now">
+                <p class="text">Category</p>
+                <div class="trending-now-text">
+                    <a href="#" @click.prevent="getCategory('women')" class="trending-now-link">Women<span
+                                class="trending-span">|</span></a>
+                    <a href="#" @click.prevent="getCategory('men')" class="trending-now-link">Men <span
+                                class="trending-span">|</span></a>
+                    <a href="#" @click.prevent="getCategory('featured')" class="trending-now-link">Featured</a>
+                    <a href="#" @click.prevent="getCategory('featured')" class="trending-now-link">Featured<span
+                                class="trending-span">|</span></a>
+                    <a href="#" @click.prevent="getCategory('men')" class="trending-now-link">Men <span
+                                class="trending-span">|</span></a>
+                    <a href="#" @click.prevent="getCategory('women')" class="trending-now-link">Women</a>
+                </div>
+            </div>
+
+            <div class="checkbox-size">
+                <p class="text">Size</p>
+                <div class="checkbox-box">
+                    <div class="_middle">
+                        <input type="checkbox" v-model="size" value="XS">
+                        <label class="text-checkbox">XS</label></div>
+                    <div class="_middle">
+                        <input type="checkbox" v-model="size" value="S">
+                        <label class="text-checkbox">S</label></div>
+                    <div class="_middle">
+                        <input type="checkbox" v-model="size" value="M">
+                        <label class="text-checkbox">M</label></div>
+                    <div class="_middle">
+                        <input type="checkbox" v-model="size" value="L">
+                        <label class="text-checkbox">L</label></div>
+                    <div class="_middle">
+                        <input type="checkbox" v-model="size" value="XL">
+                        <label class="text-checkbox">XL</label></div>
+                </div>
+            </div>
+            <div class="range-price">
+                <label class="text">pRICE</label>
+                <input type="range" v-model.number="price" step="1" min="0" :max="maxPrice">
+                <p class="text-drop-list-filter">$0 - $<span v-text="price"></span></p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <div class="sort-by">
+                <p class="buttons-text">Sort By</p>
+                <select v-model="sort" class="buttons-text">
+                    <option value="" disabled>Please select one</option>
+                    <option value="price_asc">Price high to low</option>
+                    <option value="price_desc">Price low to high</option>
+                    <option value="count_desc">Popularity</option>
+                    <option value="name_asc">Name A-Z</option>
+                    <option value="name_desc">Name Z-A</option>
+                </select>
+            </div>
+            <div class="show">
+                <p class="buttons-text">Show</p>
+                <p class="buttons-text">
+                    <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(8)">8</a></p>
+                <p class="buttons-text">
+                    <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(12)">12</a></p>
+            </div>
+        </div>
+
+        {% if user.role=="isAdmin" %}
+            <div class="shipping-address">
+                <h2 class="shopping-cart-forms-text">Product Add</h2>
+                <form method="post" enctype="multipart/form-data" action="/good/add">
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Name" name="name" type="text" required>
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Price" name="price" type="text" required>
+                    <input class="custom-file-input" type="file" name="userfile"><br>
+                    <input type="submit" class="button-black shopping-cart-forms-button_size" value="Add">
+                </form>
+            </div>
+        {% endif %}
+
+        <products :user="user" :items="items" :query="filterValue" :quantity="quantityItemOnPage" @onbuy="handleBuyClick"></products>
+
+    </div>
+</main>
