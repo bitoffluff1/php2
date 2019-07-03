@@ -35,7 +35,7 @@ class GoodController extends Controller
     {
         $this->isAdmin();
 
-        $data = ["id" => $this->getId(), "stock" => "0"];
+        $data = ["id" => $this->getId(), "stock" => "1"];
         App::call()->goodServices->changeGood($data);
 
         $this->redirect("/good");
@@ -101,7 +101,7 @@ class GoodController extends Controller
             if ($user["role"] === "isAdmin") {
                 $goods = App::call()->goodRepository->getAll();
             } else {
-                $sql = "SELECT * FROM gallery WHERE stock = '1'";
+                $sql = "SELECT * FROM gallery WHERE stock = '2'";
                 $goods = App::call()->goodRepository->getAll($sql);
             }
 

@@ -97,7 +97,8 @@ abstract class Repository implements IRepository//abstract от этого кл�
         $entity->id ? $this->update($entity) : $this->insert($entity);
     }
 
-    public function increaseViews($id){
+    public function increaseViews($id)
+    {
         $sql = "UPDATE gallery SET count = count + 1 WHERE id = :id";
         $this->db->execute($sql, [":id" => $id]);
     }

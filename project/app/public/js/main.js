@@ -30,8 +30,8 @@ Vue.component("product-item", {
                 </div>
                 
                 <div class="change-products-box" v-if="user.role == 'isAdmin'">
-                    <p class="name-item" v-if="item.stock == '1'">В наличии</p>
-                    <p class="text pink" v-else-if="item.stock == '0'">Нет в наличии</p>
+                    <p class="name-item" v-if="item.stock == '2'">В наличии</p>
+                    <p class="text pink" v-else-if="item.stock == '1'">Нет в наличии</p>
                     
                     <form class="change-products" method="post" action="/good/change">
                         <input class="product-form product-form_input"

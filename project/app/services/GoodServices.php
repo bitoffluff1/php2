@@ -49,7 +49,7 @@ class GoodServices
             $sql = "SELECT * FROM gallery WHERE $categoryWhere $brandsWhere
                     price BETWEEN '0' AND '$price' ORDER BY $sortBy $sortDir";
         } else {
-            $sql = "SELECT * FROM gallery WHERE stock = '1' AND $categoryWhere $brandsWhere
+            $sql = "SELECT * FROM gallery WHERE stock = '2' AND $categoryWhere $brandsWhere
                     price BETWEEN '0' AND '$price' ORDER BY $sortBy $sortDir";
         }
         return $sql;
