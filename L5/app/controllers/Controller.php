@@ -5,8 +5,6 @@ namespace App\controllers;
 
 
 use App\services\renders\IRender;
-use App\services\renders\TmplRender;
-
 abstract class Controller
 {
     private $action;

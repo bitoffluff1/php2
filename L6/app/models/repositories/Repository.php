@@ -54,6 +54,7 @@ abstract class Repository implements IRepository//от этого класса �
 
     protected function insert(Entity $entity)
     {
+        var_dump(789);
         $columns = [];
         $params = [];
         foreach ($entity->columns as $key => $value) {
@@ -73,6 +74,7 @@ abstract class Repository implements IRepository//от этого класса �
 
     protected function update(Entity $entity)
     {
+        var_dump(123);
         $array = [];
         foreach ($entity->columns as $key => $value) {
             if (!empty($value) || $key !== "id") {
@@ -89,6 +91,7 @@ abstract class Repository implements IRepository//от этого класса �
 
     public function save(Entity $entity)
     {
+        var_dump($entity);
         $entity->id ? $this->update($entity) : $this->insert($entity);
     }
 }

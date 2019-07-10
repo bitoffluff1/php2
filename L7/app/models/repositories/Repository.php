@@ -82,6 +82,7 @@ abstract class Repository implements IRepository//abstract от этого кл�
         $table = $this->getTableName();
 
         $sql = "UPDATE {$table} SET {$str} WHERE id = :id";
+
         $this->db->execute($sql, [":id" => $entity->id]);
     }
 

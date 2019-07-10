@@ -58,7 +58,7 @@ abstract class Model implements IModel//от этого класса нельз�
 
     protected function insert()
     {
-        $names = $this->getNamesСolumns();
+        $names = $this->getNamesColumns();
         $columns = [];
         $params = [];
         foreach ($this as $key => $value) {
@@ -79,7 +79,7 @@ abstract class Model implements IModel//от этого класса нельз�
 
     protected function update()
     {
-        $names = $this->getNamesСolumns();
+        $names = $this->getNamesColumns();
         $array = [];
         foreach ($this as $key => $value) {
             if(!in_array($key, $names)){
@@ -102,7 +102,7 @@ abstract class Model implements IModel//от этого класса нельз�
         $this->id ? $this->update() : $this->insert();
     }
 
-    protected function getNamesСolumns()
+    protected function getNamesColumns()
     {
         $table = static::getTableName();
         $sql = "SELECT COLUMN_NAME FROM COLUMNS WHERE TABLE_NAME = '{$table}' AND TABLE_SCHEMA = 'gbphp'";
